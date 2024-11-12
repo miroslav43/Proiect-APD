@@ -8,7 +8,7 @@
 
 #define N_THREADS 3
 
-barrier_t my_barr;
+my_barrier_t my_barr;
 
 void *print_from_thread(void *id_thread)
 {

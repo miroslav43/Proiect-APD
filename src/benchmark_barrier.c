@@ -1,11 +1,14 @@
-// benchmark_barrier.c
 #include <stdio.h>
+#include <stdlib.h> // For atoi()
 #include <pthread.h>
 #include <time.h>
 #include "benchmark_common.h"
 #include "barrier.h"
 
-barrier_t barrier;
+my_barrier_t barrier;
+
+int NUM_THREADS;
+int REPEATS;
 
 void *thread_func(void *arg)
 {
@@ -20,10 +23,19 @@ void *thread_func(void *arg)
     return NULL;
 }
 
-int main()
+int main(int argc, char *argv[])
 {
-    pthread_t threads[NUM_THREADS];
-    int thread_ids[NUM_THREADS];
+    if (argc != 3)
+    {
+        printf("Usage: %s NUM_THREADS REPEATS\n", argv[0]);
+        return 69;
+    }
+
+    NUM_THREADS = atoi(argv[1]);
+    REPEATS = atoi(argv[2]);
+
+    pthread_t *threads = malloc(NUM_THREADS * sizeof(pthread_t));
+    int *thread_ids = malloc(NUM_THREADS * sizeof(int));
     struct timespec start, end;
 
     clock_gettime(CLOCK_MONOTONIC, &start);
@@ -41,14 +53,16 @@ int main()
         pthread_join(threads[i], NULL);
     }
 
-
     barrier_destroy(&barrier);
 
     clock_gettime(CLOCK_MONOTONIC, &end);
-    double elapsed = (end.tv_sec - start.tv_sec) * 1000.0;
-    elapsed += (end.tv_nsec - start.tv_nsec) / 1000000000.0;
+    double elapsed = (end.tv_sec - start.tv_sec);
+    elapsed += (end.tv_nsec - start.tv_nsec) / 1e9;
 
-    printf("Elapsed time with my_barrier: %f ms\n", elapsed);
+    printf("%lf\n", elapsed); // Output elapsed time in seconds
+
+    free(threads);
+    free(thread_ids);
 
     return 0;
 }

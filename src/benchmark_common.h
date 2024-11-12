@@ -2,9 +2,9 @@
 #ifndef BENCHMARK_COMMON_H
 #define BENCHMARK_COMMON_H
 
-#define NUM_THREADS 10 // Adjust as needed
-#define REPEATS 1000 // Adjust as needed
-#define WORKLOAD 1000 // Number of float additions
+// #define NUM_THREADS 10 
+// #define REPEATS 1000 
+#define WORKLOAD 1000
 
 void do_work(int thread_id);
 

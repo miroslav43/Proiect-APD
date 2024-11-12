@@ -12,10 +12,10 @@ typedef struct
     char name[20];
 } family_member_t;
 
-barrier_t breakfast_barrier;
-barrier_t dinner_barrier;
-barrier_t math_study_barrier;
-barrier_t football_barrier;
+my_barrier_t breakfast_barrier;
+my_barrier_t dinner_barrier;
+my_barrier_t math_study_barrier;
+my_barrier_t football_barrier;
 
 void *mama_papa_routine(void *arg)
 {
