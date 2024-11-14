@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
     if (argc != 3)
     {
         printf("Usage: %s NUM_THREADS REPEATS\n", argv[0]);
-        return 69;
+        return 1;
     }
 
     NUM_THREADS = atoi(argv[1]);
